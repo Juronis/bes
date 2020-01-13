@@ -9,22 +9,30 @@ import lt.vaidotas.bes.generator.MultiplicativeRemainderGenerator;
 
 public class MainLauncher {
     
+    private static final String PATH_TO_PROPERTIES = "app.properties";
     /**
      * main method, which handles user interface
      * @param args
      */
     public static void main(String[] args) {
-        BigInteger bigA = new BigInteger(args[0]); 
-        BigInteger bigB = new BigInteger(args[1]);
-        Properties prop = PropertiesReader.readProperties();
+        Properties prop = PropertiesReader.readProperties(PATH_TO_PROPERTIES);
         if(prop == null){
             System.out.println("Could not read properties file: ");
             System.exit(1);
         }
-        Generator<BigInteger8BitGeneratable> generatorA = new MultiplicativeRemainderGenerator( 
-                new BigInteger(prop.getProperty("divisor")), new BigInteger(prop.getProperty("generatorA.factor")), bigA);
-        Generator<BigInteger8BitGeneratable> generatorB = new MultiplicativeRemainderGenerator( 
-                new BigInteger(prop.getProperty("divisor")), new BigInteger(prop.getProperty("generatorB.factor")), bigB);
+        Generator<BigInteger8BitGeneratable> generatorA = null;
+        Generator<BigInteger8BitGeneratable> generatorB = null;
+        try{
+            BigInteger bigA = new BigInteger(args[0]); 
+            BigInteger bigB = new BigInteger(args[1]);
+            generatorA = new MultiplicativeRemainderGenerator( 
+                    new BigInteger(prop.getProperty("divisor")), new BigInteger(prop.getProperty("generatorA.factor")), bigA);
+            generatorB = new MultiplicativeRemainderGenerator( 
+                    new BigInteger(prop.getProperty("divisor")), new BigInteger(prop.getProperty("generatorB.factor")), bigB);
+        }catch(NumberFormatException e){
+            System.out.println("Invalid number :" + e.getLocalizedMessage());
+            System.exit(1);
+        }
         AlgorithmLauncher<BigInteger8BitGeneratable> algorithmLauncher = 
                 new AlgorithmLauncher<BigInteger8BitGeneratable>(generatorA, generatorB);
         System.out.println("MatchCount: " + 

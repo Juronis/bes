@@ -5,9 +5,9 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesReader {
-    public static Properties readProperties() {
+    public static Properties readProperties( String path) {
         try (InputStream input = ClassLoader
-                .getSystemResourceAsStream("app.properties")) {
+                .getSystemResourceAsStream(path)) {
             Properties prop = new Properties();
             prop.load(input);
             return prop;

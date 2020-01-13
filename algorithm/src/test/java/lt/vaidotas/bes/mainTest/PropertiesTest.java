@@ -12,7 +12,7 @@ public class PropertiesTest {
     
     @Test
     public void propertiesTest(){
-        Properties properties = PropertiesReader.readProperties(); 
+        Properties properties = PropertiesReader.readProperties("app.properties"); 
         Assert.assertEquals(properties.getProperty("repetitionCount"), "10" );
         Assert.assertEquals(properties.getProperty("generatorA.factor"), "12345" );
         Assert.assertEquals(properties.getProperty("generatorB.factor"), "85741" );
