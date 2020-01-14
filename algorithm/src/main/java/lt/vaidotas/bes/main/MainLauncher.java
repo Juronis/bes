@@ -23,12 +23,12 @@ public class MainLauncher {
         Generator<BigInteger8BitGeneratable> generatorA = null;
         Generator<BigInteger8BitGeneratable> generatorB = null;
         try{
-            BigInteger bigA = new BigInteger(args[0]); 
-            BigInteger bigB = new BigInteger(args[1]);
+            BigInteger bigIntegerA = new BigInteger(args[0]); 
+            BigInteger bigIntegerB = new BigInteger(args[1]);
             generatorA = new MultiplicativeRemainderGenerator( 
-                    new BigInteger(prop.getProperty("divisor")), new BigInteger(prop.getProperty("generatorA.factor")), bigA);
+                    new BigInteger(prop.getProperty("divisor")), new BigInteger(prop.getProperty("generatorA.factor")), bigIntegerA);
             generatorB = new MultiplicativeRemainderGenerator( 
-                    new BigInteger(prop.getProperty("divisor")), new BigInteger(prop.getProperty("generatorB.factor")), bigB);
+                    new BigInteger(prop.getProperty("divisor")), new BigInteger(prop.getProperty("generatorB.factor")), bigIntegerB);
         }catch(NumberFormatException e){
             System.out.println("Invalid number :" + e.getLocalizedMessage());
             System.exit(1);
